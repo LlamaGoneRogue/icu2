@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCSEF Presentation - ICU Prediction in Febrile Oncology Patients</title>
+    <style>
+        @page {
+            size: landscape;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            font-size: 18pt;
+            line-height: 1.5;
+            color: #1a1a1a;
+            background: #f5f7fa;
+        }
+
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            padding: 35px 50px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            page-break-after: always;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            font-size: 14pt;
+            color: #718096;
+        }
+
+        .slide-title {
+            font-size: 28pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #3182ce;
+        }
+
+        h2 {
+            font-size: 20pt;
+            color: #2c5282;
+            margin: 12px 0 10px 0;
+        }
+
+        h3 {
+            font-size: 16pt;
+            color: #2d3748;
+            margin: 10px 0 6px 0;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        ul,
+        ol {
+            margin: 8px 0 8px 30px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+        }
+
+        .title-slide .main-title {
+            font-size: 36pt;
+            font-weight: bold;
+            margin-bottom: 40px;
+            max-width: 900px;
+            line-height: 1.3;
+        }
+
+        .title-slide .author-info {
+            font-size: 24pt;
+            margin-bottom: 10px;
+        }
+
+        .title-slide .school-info {
+            font-size: 20pt;
+            opacity: 0.9;
+        }
+
+        .title-slide .project-id {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 16pt;
+            opacity: 0.8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16pt;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #cbd5e0;
+        }
+
+        th {
+            background: #2c5282;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        tr.highlight {
+            background: #ebf8ff;
+            font-weight: 600;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, #ebf8ff, #ffffff);
+            border: 2px solid #3182ce;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 36pt;
+            font-weight: bold;
+            color: #2c5282;
+        }
+
+        .metric-label {
+            font-size: 14pt;
+            color: #4a5568;
+            margin-top: 5px;
+        }
+
+        .highlight-box {
+            background: #f0fff4;
+            border-left: 5px solid #38a169;
+            padding: 12px 15px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .figure-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .figure-caption {
+            font-size: 12pt;
+            color: #4a5568;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .references {
+            font-size: 14pt;
+        }
+
+        .references ol {
+            margin-left: 25px;
+        }
+
+        .references li {
+            margin-bottom: 8px;
+        }
+
+        @media print {
+            .slide {
+                height: 100vh;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide title-slide">
+        <h1 class="main-title">Machine Learning-Based Prediction of ICU Admission in Febrile Oncology Patients</h1>
+        <p class="author-info">by <strong>Aditya Iyer</strong></p>
+    </div>
+
+    <!-- SLIDE 2: Introduction - Background -->
+    <div class="slide">
+        <h1 class="slide-title">INTRODUCTION</h1>
+
+        <h2>Background</h2>
+        <ul>
+            <li><strong>Febrile illness</strong> is one of the most common oncological emergencies, affecting up to 80%
+                of chemotherapy patients</li>
+            <li>While many episodes resolve with antibiotics, some patients rapidly deteriorate and require <strong>ICU
+                    admission</strong></li>
+            <li>Early identification of high-risk patients is critical for timely intervention and resource allocation
+            </li>
+        </ul>
+
+        <h2>Current Clinical Scores</h2>
+        <ul>
+            <li><strong>MASCC Score:</strong> Identifies low-risk patients for outpatient treatment (AUROC ~0.65)</li>
+            <li><strong>qSOFA Score:</strong> Identifies sepsis risk, but not designed for ICU prediction (AUROC ~0.84)
+            </li>
+            <li>Neither score was specifically designed to predict ICU admission in oncology patients</li>
+        </ul>
+
+    </div>
+
+    <!-- SLIDE 3: Introduction - Research Question -->
+    <div class="slide">
+        <h1 class="slide-title">INTRODUCTION</h1>
+
+        <h2>Research Question</h2>
+        <p
+            style="font-size: 22pt; text-align: center; padding: 20px; background: #ebf8ff; border-radius: 10px; margin: 20px 0;">
+            <em>Can a machine learning model using routinely available clinical features predict ICU admission in
+                febrile oncology patients more accurately than existing clinical scores?</em>
+        </p>
+
+        <h2>Hypotheses</h2>
+        <ol>
+            <li><strong>Primary (H1):</strong> An XGBoost model will achieve AUROC ≥ 0.80 for ICU prediction</li>
+            <li><strong>Secondary (H2):</strong> The ML model will outperform MASCC and qSOFA scores</li>
+            <li><strong>Exploratory (H3):</strong> Model performance will be consistent across patient subgroups</li>
+        </ol>
+
+        <div class="highlight-box">
+            <strong>Key Consideration:</strong> Since hypotension requiring vasopressors almost always leads to ICU
+            admission (clinical protocol), can the model provide value beyond this obvious predictor?
+        </div>
+
+    </div>
+
+    <!-- SLIDE 4: Methods - Data & Features -->
+    <div class="slide">
+        <h1 class="slide-title">METHODS</h1>
+
+        <h2>Study Design & Data Collection</h2>
+        <ul>
+            <li><strong>Design:</strong> Retrospective cohort study</li>
+            <li><strong>Population:</strong> 149 oncology patients with febrile illness</li>
+            <li><strong>Outcome:</strong> ICU admission (binary: yes/no)</li>
+            <li><strong>ICU admission rate:</strong> 54.4% (81/149 patients)</li>
+        </ul>
+
+        <h2>Clinical Features (10 variables)</h2>
+        <div class="two-column">
+            <div>
+                <h3>Clinical Scores</h3>
+                <ul>
+                    <li>MASCC score (categorized)</li>
+                    <li>qSOFA score (0-3)</li>
+                    <li>Hypotension level (0-2)</li>
+                </ul>
+                <h3>Disease Characteristics</h3>
+                <ul>
+                    <li>Tumor type (solid vs. hematologic)</li>
+                    <li>Metastatic status</li>
+                    <li>Neutropenia status</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Infection & Demographics</h3>
+                <ul>
+                    <li>Infection focus (6 categories)</li>
+                    <li>Line of therapy</li>
+                    <li>Comorbidity burden</li>
+                    <li>Age group, Gender</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SLIDE 5: Methods - Model & Validation -->
+    <div class="slide">
+        <h1 class="slide-title">METHODS</h1>
+
+        <h2>Model Development</h2>
+        <ul>
+            <li><strong>Algorithm:</strong> XGBoost (Extreme Gradient Boosting) classifier</li>
+            <li><strong>Hyperparameters:</strong> 100 estimators, max depth 3, learning rate 0.1, subsample 0.8</li>
+            <li><strong>Comparison models:</strong> Logistic Regression, MASCC alone, qSOFA alone, MASCC+qSOFA combined
+            </li>
+        </ul>
+
+        <h2>Validation Strategy</h2>
+        <ul>
+            <li><strong>Cross-validation:</strong> 10-repeat × 5-fold stratified CV (50 total folds)</li>
+            <li><strong>Confidence intervals:</strong> 1000-iteration bootstrap</li>
+            <li><strong>Out-of-fold predictions:</strong> Used to prevent data leakage</li>
+        </ul>
+
+        <h2>Sensitivity Analysis</h2>
+        <ul>
+            <li>Trained a separate model <strong>excluding hypotension</strong> to assess value beyond obvious clinical
+                triggers</li>
+            <li>This tests whether the model captures genuine predictive signal from other features</li>
+        </ul>
+
+    </div>
+
+    <!-- SLIDE 6: Results - Key Metrics -->
+    <div class="slide">
+        <h1 class="slide-title">RESULTS</h1>
+
+        <h2>Model Performance Summary</h2>
+
+        <div class="metrics-grid">
+            <div class="metric-box">
+                <div class="metric-value">0.934</div>
+                <div class="metric-label">AUROC (Full Model)</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">0.887</div>
+                <div class="metric-label">AUROC (No Hypotension)</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">85.9%</div>
+                <div class="metric-label">Accuracy</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">87.7%</div>
+                <div class="metric-label">Sensitivity</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">88.2%</div>
+                <div class="metric-label">Specificity</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-value">0.092</div>
+                <div class="metric-label">Brier Score</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>Key Finding:</strong> Even when excluding hypotension (a near-deterministic ICU trigger), the model
+            still achieves AUROC of 0.887, demonstrating genuine predictive value from other clinical features.
+        </div>
+
+    </div>
+
+    <!-- SLIDE 7: Results - Model Comparison -->
+    <div class="slide">
+        <h1 class="slide-title">RESULTS</h1>
+
+        <h2>Model Comparison</h2>
+
+        <table>
+            <tr>
+                <th>Model</th>
+                <th>AUROC (95% CI)</th>
+                <th>Accuracy</th>
+                <th>Sensitivity</th>
+                <th>Specificity</th>
+            </tr>
+            <tr class="highlight">
+                <td><strong>XGBoost (Full)</strong></td>
+                <td><strong>0.934 (0.863-1.000)</strong></td>
+                <td><strong>85.9%</strong></td>
+                <td>87.7%</td>
+                <td><strong>88.2%</strong></td>
+            </tr>
+            <tr class="highlight">
+                <td><strong>XGBoost (No Hypotension)</strong></td>
+                <td><strong>0.887 (0.771-0.980)</strong></td>
+                <td>81.2%</td>
+                <td>86.4%</td>
+                <td>76.5%</td>
+            </tr>
+            <tr>
+                <td>Logistic Regression</td>
+                <td>0.917 (0.826-0.994)</td>
+                <td>85.1%</td>
+                <td>87.7%</td>
+                <td>80.9%</td>
+            </tr>
+            <tr>
+                <td>MASCC + qSOFA</td>
+                <td>0.864 (0.767-0.932)</td>
+                <td>77.9%</td>
+                <td>96.3%</td>
+                <td>55.9%</td>
+            </tr>
+            <tr>
+                <td>qSOFA Alone</td>
+                <td>0.838 (0.733-0.918)</td>
+                <td>71.0%</td>
+                <td>86.4%</td>
+                <td>55.9%</td>
+            </tr>
+            <tr>
+                <td>MASCC Alone</td>
+                <td>0.656 (0.546-0.782)</td>
+                <td>68.5%</td>
+                <td>98.8%</td>
+                <td>32.4%</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- SLIDE 8: Results - Feature Importance -->
+    <div class="slide">
+        <h1 class="slide-title">RESULTS</h1>
+
+        <h2>Feature Importance Analysis</h2>
+
+        <div class="two-column">
+            <div>
+                <h3>Top Predictors (Full Model)</h3>
+                <table style="font-size: 16pt;">
+                    <tr>
+                        <th>Feature</th>
+                        <th>Importance</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Hypotension Level</strong></td>
+                        <td>0.485</td>
+                    </tr>
+                    <tr>
+                        <td>qSOFA Score</td>
+                        <td>0.179</td>
+                    </tr>
+                    <tr>
+                        <td>Metastatic Status</td>
+                        <td>0.071</td>
+                    </tr>
+                    <tr>
+                        <td>Comorbidities</td>
+                        <td>0.065</td>
+                    </tr>
+                    <tr>
+                        <td>Line of Therapy</td>
+                        <td>0.052</td>
+                    </tr>
+                </table>
+
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <strong>Clinical Insight:</strong> 100% of patients requiring inotropes (Hypotension Level 2) were
+                    admitted to ICU — this reflects clinical protocol.
+                </div>
+            </div>
+            <div>
+                <h3>Sensitivity Analysis Impact</h3>
+                <p>When hypotension is removed:</p>
+                <ul>
+                    <li>AUROC drops from 0.934 → <strong>0.887</strong></li>
+                    <li>Still exceeds 0.80 threshold</li>
+                    <li>qSOFA becomes the top predictor</li>
+                    <li>Demonstrates model value beyond obvious clinical triggers</li>
+                </ul>
+                <p style="margin-top: 20px;"><strong>This is the key scientific contribution:</strong> The model
+                    provides clinically useful discrimination even without the dominant hypotension feature.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SLIDE 9: Discussion - Interpretation -->
+    <div class="slide">
+        <h1 class="slide-title">DISCUSSION</h1>
+
+        <h2>Interpretation of Results</h2>
+        <ul>
+            <li>The XGBoost model achieved <strong>excellent discrimination</strong> (AUROC 0.934), exceeding the
+                hypothesis threshold of 0.80</li>
+            <li>The model <strong>significantly outperformed</strong> established clinical scores:
+                <ul>
+                    <li>+42% improvement over MASCC alone (0.656)</li>
+                    <li>+11% improvement over qSOFA alone (0.838)</li>
+                </ul>
+            </li>
+            <li>Performance was <strong>consistent across subgroups</strong>: solid tumors, hematologic malignancies,
+                neutropenic and non-neutropenic patients</li>
+        </ul>
+
+        <h2>Addressing the Hypotension Question</h2>
+        <ul>
+            <li>Yes, hypotension dominates the full model — but this is <strong>expected clinical behavior</strong></li>
+            <li>The sensitivity analysis proves the model has <strong>genuine predictive value</strong> beyond obvious
+                triggers</li>
+            <li>Model is most useful for <strong>"intermediate risk"</strong> patients without clear hemodynamic
+                instability</li>
+        </ul>
+
+    </div>
+
+    <!-- SLIDE 10: Discussion - Limitations -->
+    <div class="slide">
+        <h1 class="slide-title">DISCUSSION</h1>
+
+        <h2>Possible Errors & Limitations</h2>
+
+        <div class="two-column">
+            <div>
+                <h3>Study Limitations</h3>
+                <ol>
+                    <li><strong>Sample size (n=149):</strong> Limited power for detailed subgroup analyses</li>
+                    <li><strong>Single-center data:</strong> May not generalize to other institutions</li>
+                    <li><strong>Retrospective design:</strong> Subject to selection bias and missing data</li>
+                    <li><strong>No external validation:</strong> Model needs testing at independent sites</li>
+                </ol>
+            </div>
+            <div>
+                <h3>Methodological Considerations</h3>
+                <ol>
+                    <li><strong>Hypotension as predictor:</strong> Partially reflects clinical protocol rather than pure
+                        prediction</li>
+                    <li><strong>High subgroup AUROCs:</strong> Small samples within subgroups lead to wide confidence
+                        intervals</li>
+                    <li><strong>Calibration slope (0.84):</strong> Slight overconfidence in extreme predictions</li>
+                </ol>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SLIDE 11: Conclusions -->
+    <div class="slide">
+        <h1 class="slide-title">CONCLUSIONS</h1>
+
+        <h2>Key Conclusions</h2>
+        <ul>
+            <li><strong>H1 supported:</strong> XGBoost achieved AUROC of 0.934, exceeding the 0.80 threshold</li>
+            <li><strong>H2 supported:</strong> Model significantly outperformed MASCC (0.656) and qSOFA (0.838)</li>
+            <li><strong>H3 supported:</strong> Consistent performance across tumor type and neutropenia status</li>
+            <li><strong>Sensitivity analysis:</strong> Model retains useful discrimination (AUROC 0.887) even without
+                hypotension</li>
+        </ul>
+
+        <div class="two-column">
+            <div>
+                <h2>Clinical Applications</h2>
+                <ul>
+                    <li><strong>Triage tool:</strong> Identify high-risk patients at presentation</li>
+                    <li><strong>Resource allocation:</strong> Optimize ICU bed utilization</li>
+                    <li><strong>Decision support:</strong> Complement clinical judgment</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Future Directions</h2>
+                <ul>
+                    <li>Multi-center external validation study</li>
+                    <li>Prospective implementation trial</li>
+                    <li>Integration of laboratory biomarkers</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SLIDE 12: References -->
+    <div class="slide references">
+        <h1 class="slide-title">REFERENCES</h1>
+
+        <ol>
+            <li>Klastersky J, Paesmans M, Rubenstein EB, et al. The MASCC risk index: A multinational scoring system for
+                identifying low-risk febrile neutropenic cancer patients. <em>J Clin Oncol</em>. 2000;18(16):3038-3051.
+            </li>
+            <li>Kuderer NM, Dale DC, Crawford J, et al. Mortality, morbidity, and cost associated with febrile
+                neutropenia in adult cancer patients. <em>Cancer</em>. 2006;106(10):2258-2266.</li>
+            <li>Seymour CW, Liu VX, Iwashyna TJ, et al. Assessment of clinical criteria for sepsis (Sepsis-3).
+                <em>JAMA</em>. 2016;315(8):762-774.
+            </li>
+            <li>Rajkomar A, Dean J, Kohane I. Machine learning in medicine. <em>N Engl J Med</em>.
+                2019;380(14):1347-1358.</li>
+            <li>Chen T, Guestrin C. XGBoost: A Scalable Tree Boosting System. <em>Proc KDD</em>. 2016:785-794.</li>
+            <li>Vickers AJ, Elkin EB. Decision curve analysis: a novel method for evaluating prediction models. <em>Med
+                    Decis Making</em>. 2006;26(6):565-574.</li>
+            <li>Collins GS, Reitsma JB, Altman DG, Moons KGM. TRIPOD Statement for prediction models. <em>Ann Intern
+                    Med</em>. 2015;162(1):55-63.</li>
+            <li>Wiens J, Saria S, Sendak M, et al. Do no harm: a roadmap for responsible machine learning for health
+                care. <em>Nat Med</em>. 2019;25(9):1337-1340.</li>
+            <li>Pedregosa F, Varoquaux G, Gramfort A, et al. Scikit-learn: Machine Learning in Python. <em>JMLR</em>.
+                2011;12:2825-2830.</li>
+            <li>Lundberg SM, Lee SI. A Unified Approach to Interpreting Model Predictions. <em>NeurIPS</em>. 2017.</li>
+        </ol>
+
+    </div>
+
+</body>
+
+</html>

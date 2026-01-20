@@ -1,0 +1,31 @@
+NO-HYPOTENSION MODEL - Validation Summary
+==================================================
+
+1. Hypotension feature excluded: YES
+   Features used: 16
+   Hypotension_Level in features: False
+
+2. Metrics from OOF predictions: YES
+   All metrics computed from out-of-fold predictions
+
+3. Preprocessing leakage: NONE
+   No preprocessing applied (features already encoded in data)
+   Model trained only on training folds
+
+4. Feature list:
+   - Type
+   - Neutropenia
+   - Focus_PneumResp
+   - UTI
+   - Focus_Bloodstream
+   - Focus_GI_Hepatobiliary
+   - Focus_SoftTissue
+   - Focus_NoneUnknown
+   - Comorb
+   - Mets_Binary
+   - Mets_Missing
+   - Line_Rx
+   - MASCC
+   - qSOFA
+   - Gender
+   - Age_Group

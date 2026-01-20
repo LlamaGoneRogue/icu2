@@ -1,0 +1,453 @@
+{
+  "profile": {
+    "row_count": 149,
+    "column_count": 18,
+    "columns": [
+      "Type",
+      "Neutropenia",
+      "Hypotension_Level",
+      "Focus_PneumResp",
+      "UTI",
+      "Focus_Bloodstream",
+      "Focus_GI_Hepatobiliary",
+      "Focus_SoftTissue",
+      "Focus_NoneUnknown",
+      "Comorb",
+      "Mets_Binary",
+      "Mets_Missing",
+      "Line_Rx",
+      "MASCC",
+      "qSOFA",
+      "Gender",
+      "Age_Group",
+      "ICU_Requirement"
+    ],
+    "dtypes": {
+      "Type": "int64",
+      "Neutropenia": "int64",
+      "Hypotension_Level": "int64",
+      "Focus_PneumResp": "int64",
+      "UTI": "int64",
+      "Focus_Bloodstream": "int64",
+      "Focus_GI_Hepatobiliary": "int64",
+      "Focus_SoftTissue": "int64",
+      "Focus_NoneUnknown": "int64",
+      "Comorb": "int64",
+      "Mets_Binary": "int64",
+      "Mets_Missing": "int64",
+      "Line_Rx": "int64",
+      "MASCC": "int64",
+      "qSOFA": "int64",
+      "Gender": "int64",
+      "Age_Group": "int64",
+      "ICU_Requirement": "int64"
+    },
+    "missing_counts": {
+      "Type": 0,
+      "Neutropenia": 0,
+      "Hypotension_Level": 0,
+      "Focus_PneumResp": 0,
+      "UTI": 0,
+      "Focus_Bloodstream": 0,
+      "Focus_GI_Hepatobiliary": 0,
+      "Focus_SoftTissue": 0,
+      "Focus_NoneUnknown": 0,
+      "Comorb": 0,
+      "Mets_Binary": 0,
+      "Mets_Missing": 0,
+      "Line_Rx": 0,
+      "MASCC": 0,
+      "qSOFA": 0,
+      "Gender": 0,
+      "Age_Group": 0,
+      "ICU_Requirement": 0
+    },
+    "missing_percentages": {
+      "Type": 0.0,
+      "Neutropenia": 0.0,
+      "Hypotension_Level": 0.0,
+      "Focus_PneumResp": 0.0,
+      "UTI": 0.0,
+      "Focus_Bloodstream": 0.0,
+      "Focus_GI_Hepatobiliary": 0.0,
+      "Focus_SoftTissue": 0.0,
+      "Focus_NoneUnknown": 0.0,
+      "Comorb": 0.0,
+      "Mets_Binary": 0.0,
+      "Mets_Missing": 0.0,
+      "Line_Rx": 0.0,
+      "MASCC": 0.0,
+      "qSOFA": 0.0,
+      "Gender": 0.0,
+      "Age_Group": 0.0,
+      "ICU_Requirement": 0.0
+    },
+    "value_counts": {
+      "Type": {
+        "0": 103,
+        "1": 46
+      },
+      "Neutropenia": {
+        "0": 81,
+        "1": 68
+      },
+      "Hypotension_Level": {
+        "2": 57,
+        "0": 50,
+        "1": 42
+      },
+      "Focus_PneumResp": {
+        "0": 96,
+        "1": 53
+      },
+      "UTI": {
+        "0": 114,
+        "1": 35
+      },
+      "Focus_Bloodstream": {
+        "0": 142,
+        "1": 7
+      },
+      "Focus_GI_Hepatobiliary": {
+        "0": 129,
+        "1": 20
+      },
+      "Focus_SoftTissue": {
+        "0": 136,
+        "1": 13
+      },
+      "Focus_NoneUnknown": {
+        "0": 128,
+        "1": 21
+      },
+      "Comorb": {
+        "0": 87,
+        "1": 62
+      },
+      "Mets_Binary": {
+        "0": 112,
+        "1": 37
+      },
+      "Mets_Missing": {
+        "0": 126,
+        "1": 23
+      },
+      "Line_Rx": {
+        "1": 69,
+        "2": 37,
+        "3": 28,
+        "4": 11,
+        "5": 4
+      },
+      "MASCC": {
+        "1": 126,
+        "2": 23
+      },
+      "qSOFA": {
+        "1": 71,
+        "2": 33,
+        "0": 33,
+        "3": 12
+      },
+      "Gender": {
+        "2": 75,
+        "1": 74
+      },
+      "Age_Group": {
+        "2": 71,
+        "3": 58,
+        "1": 20
+      },
+      "ICU_Requirement": {
+        "1": 81,
+        "0": 68
+      }
+    }
+  },
+  "target_analysis": {
+    "column_name": "ICU_Requirement",
+    "dtype": "int64",
+    "unique_values": [
+      "1",
+      "0"
+    ],
+    "value_counts": {
+      "1": 81,
+      "0": 68
+    },
+    "class_balance": {
+      "1": 54.36,
+      "0": 45.64
+    },
+    "missing_count": "0",
+    "mapping": "Binary: 1 = ICU Required, 0 = Not ICU Required"
+  },
+  "feature_descriptions": {
+    "Type": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.3087248322147651,
+      "std": 0.4635253988647312,
+      "median": 0.0,
+      "value_counts": {
+        "0": 103,
+        "1": 46
+      }
+    },
+    "Neutropenia": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.4563758389261745,
+      "std": 0.49977321176317774,
+      "median": 0.0,
+      "value_counts": {
+        "0": 81,
+        "1": 68
+      }
+    },
+    "Hypotension_Level": {
+      "dtype": "int64",
+      "unique_count": 3,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 2.0,
+      "mean": 1.0469798657718121,
+      "std": 0.8489705249857479,
+      "median": 1.0,
+      "value_counts": {
+        "2": 57,
+        "0": 50,
+        "1": 42
+      }
+    },
+    "Focus_PneumResp": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.35570469798657717,
+      "std": 0.4803408911043999,
+      "median": 0.0,
+      "value_counts": {
+        "0": 96,
+        "1": 53
+      }
+    },
+    "UTI": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.2348993288590604,
+      "std": 0.4253656891741195,
+      "median": 0.0,
+      "value_counts": {
+        "0": 114,
+        "1": 35
+      }
+    },
+    "Focus_Bloodstream": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.04697986577181208,
+      "std": 0.21230938890897125,
+      "median": 0.0,
+      "value_counts": {
+        "0": 142,
+        "1": 7
+      }
+    },
+    "Focus_GI_Hepatobiliary": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.1342281879194631,
+      "std": 0.34204705936712004,
+      "median": 0.0,
+      "value_counts": {
+        "0": 129,
+        "1": 20
+      }
+    },
+    "Focus_SoftTissue": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.087248322147651,
+      "std": 0.28315037323904246,
+      "median": 0.0,
+      "value_counts": {
+        "0": 136,
+        "1": 13
+      }
+    },
+    "Focus_NoneUnknown": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.14093959731543623,
+      "std": 0.3491327910499431,
+      "median": 0.0,
+      "value_counts": {
+        "0": 128,
+        "1": 21
+      }
+    },
+    "Comorb": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.4161073825503356,
+      "std": 0.4945742250327561,
+      "median": 0.0,
+      "value_counts": {
+        "0": 87,
+        "1": 62
+      }
+    },
+    "Mets_Binary": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.2483221476510067,
+      "std": 0.4334967855558427,
+      "median": 0.0,
+      "value_counts": {
+        "0": 112,
+        "1": 37
+      }
+    },
+    "Mets_Missing": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.15436241610738255,
+      "std": 0.36251434668283095,
+      "median": 0.0,
+      "value_counts": {
+        "0": 126,
+        "1": 23
+      }
+    },
+    "Line_Rx": {
+      "dtype": "int64",
+      "unique_count": 5,
+      "missing_count": "0",
+      "min": 1.0,
+      "max": 5.0,
+      "mean": 1.9530201342281879,
+      "std": 1.0925767365579175,
+      "median": 2.0,
+      "value_counts": {
+        "1": 69,
+        "2": 37,
+        "3": 28,
+        "4": 11,
+        "5": 4
+      }
+    },
+    "MASCC": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.1543624161073827,
+      "std": 0.36251434668283095,
+      "median": 1.0,
+      "value_counts": {
+        "1": 126,
+        "2": 23
+      }
+    },
+    "qSOFA": {
+      "dtype": "int64",
+      "unique_count": 4,
+      "missing_count": "0",
+      "min": 0.0,
+      "max": 3.0,
+      "mean": 1.1610738255033557,
+      "std": 0.8626414031675708,
+      "median": 1.0,
+      "value_counts": {
+        "1": 71,
+        "2": 33,
+        "0": 33,
+        "3": 12
+      }
+    },
+    "Gender": {
+      "dtype": "int64",
+      "unique_count": 2,
+      "missing_count": "0",
+      "min": 1.0,
+      "max": 2.0,
+      "mean": 1.5033557046979866,
+      "std": 0.5016750465679883,
+      "median": 2.0,
+      "value_counts": {
+        "2": 75,
+        "1": 74
+      }
+    },
+    "Age_Group": {
+      "dtype": "int64",
+      "unique_count": 3,
+      "missing_count": "0",
+      "min": 1.0,
+      "max": 3.0,
+      "mean": 2.2550335570469797,
+      "std": 0.6793713550448718,
+      "median": 2.0,
+      "value_counts": {
+        "2": 71,
+        "3": 58,
+        "1": 20
+      }
+    }
+  },
+  "is_valid": true,
+  "feature_columns": [
+    "Type",
+    "Neutropenia",
+    "Hypotension_Level",
+    "Focus_PneumResp",
+    "UTI",
+    "Focus_Bloodstream",
+    "Focus_GI_Hepatobiliary",
+    "Focus_SoftTissue",
+    "Focus_NoneUnknown",
+    "Comorb",
+    "Mets_Binary",
+    "Mets_Missing",
+    "Line_Rx",
+    "MASCC",
+    "qSOFA",
+    "Gender",
+    "Age_Group"
+  ],
+  "target_column": "ICU_Requirement"
+}

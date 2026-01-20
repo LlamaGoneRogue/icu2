@@ -1,0 +1,21 @@
+
+✅ VALIDATED:
+   - Cross-validation is stable across methods (5-fold, 10-fold, repeated)
+   - LOO-CV confirms performance (~0.935)
+   - Bootstrap 95% CI: [0.867, 0.985]
+   - Permutation test p-value: 0.01 (statistically significant)
+   - No obvious preprocessing leakage
+   - Model significantly outperforms random baseline
+
+⚠️ CONCERNS:
+   - Hypotension_Level=2 perfectly predicts ICU (potential circularity)
+   - Train-Val gap: 0.057 (monitor for overfitting)
+   - Small sample size (n=149) limits generalizability
+   - Without hypotension, AUROC drops to ~0.86
+
+📋 RECOMMENDATIONS:
+   1. Verify Hypotension_Level is measured BEFORE ICU decision
+   2. Present sensitivity analysis (with/without hypotension)
+   3. Acknowledge sample size limitations
+   4. Frame appropriately: "risk stratification tool" not "prediction model"
+   5. External validation essential before clinical use

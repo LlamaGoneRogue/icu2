@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quad Chart - ICU Prediction in Febrile Oncology Patients</title>
+    <style>
+        @page {
+            size: landscape;
+            margin: 0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Calibri', 'Arial', sans-serif;
+            font-size: 11pt;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: white;
+        }
+
+        .quad-container {
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            padding: 15px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #1a365d, #2c5282);
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .header .author {
+            font-size: 11pt;
+        }
+
+        .quad-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 12px;
+            height: 100%;
+        }
+
+        .quadrant {
+            border: 2px solid #2c5282;
+            border-radius: 8px;
+            padding: 12px 15px;
+            overflow: hidden;
+        }
+
+        .quadrant h2 {
+            font-size: 13pt;
+            color: white;
+            background: #2c5282;
+            margin: -12px -15px 10px -15px;
+            padding: 8px 15px;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .quadrant h3 {
+            font-size: 10pt;
+            color: #2c5282;
+            margin: 8px 0 4px 0;
+        }
+
+        .quadrant ul {
+            margin: 5px 0 5px 18px;
+            font-size: 10pt;
+        }
+
+        .quadrant li {
+            margin-bottom: 3px;
+        }
+
+        .quadrant p {
+            font-size: 10pt;
+            margin-bottom: 5px;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, #ebf8ff, #ffffff);
+            border: 1px solid #3182ce;
+            border-radius: 5px;
+            padding: 6px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #2c5282;
+        }
+
+        .metric-label {
+            font-size: 8pt;
+            color: #4a5568;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+            margin-top: 5px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 4px 6px;
+            border: 1px solid #cbd5e0;
+            text-align: center;
+        }
+
+        .comparison-table th {
+            background: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .comparison-table tr.highlight {
+            background: #ebf8ff;
+            font-weight: 600;
+        }
+
+        .highlight-text {
+            background: #f0fff4;
+            border-left: 3px solid #38a169;
+            padding: 6px 10px;
+            margin: 8px 0;
+            font-size: 9pt;
+        }
+
+        .q1 {
+            background: #fafcff;
+        }
+
+        .q2 {
+            background: #fafcff;
+        }
+
+        .q3 {
+            background: #fafcff;
+        }
+
+        .q4 {
+            background: #fafcff;
+        }
+
+        @media print {
+            .quad-container {
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="quad-container">
+        <div class="header">
+            <h1>Machine Learning-Based Prediction of ICU Admission in Febrile Oncology Patients</h1>
+            <p class="author">by <strong>Aditya Iyer</strong></p>
+        </div>
+
+        <div class="quad-grid">
+            <!-- Q1: Problem/Objective -->
+            <div class="quadrant q1">
+                <h2>1. PROBLEM & OBJECTIVE</h2>
+
+                <h3>The Problem</h3>
+                <ul>
+                    <li>Febrile illness affects up to 80% of chemotherapy patients</li>
+                    <li>Some patients rapidly deteriorate and require ICU admission</li>
+                    <li>Current scores (MASCC, qSOFA) not designed for ICU prediction</li>
+                </ul>
+
+                <h3>Research Question</h3>
+                <p><em>Can a machine learning model using routinely available clinical features predict ICU admission in
+                        febrile oncology patients more accurately than existing clinical scores?</em></p>
+
+                <h3>Hypotheses</h3>
+                <ul>
+                    <li><strong>H1:</strong> XGBoost model will achieve AUROC ≥ 0.80</li>
+                    <li><strong>H2:</strong> Model will outperform MASCC and qSOFA</li>
+                    <li><strong>H3:</strong> Consistent performance across subgroups</li>
+                </ul>
+            </div>
+
+            <!-- Q2: Approach/Methods -->
+            <div class="quadrant q2">
+                <h2>2. APPROACH & METHODS</h2>
+
+                <h3>Study Design</h3>
+                <ul>
+                    <li><strong>Population:</strong> 149 oncology patients with febrile illness</li>
+                    <li><strong>Outcome:</strong> ICU admission (54.4% rate)</li>
+                    <li><strong>Features:</strong> 10 clinical variables (MASCC, qSOFA, hypotension, tumor type,
+                        neutropenia, etc.)</li>
+                </ul>
+
+                <h3>Model Development</h3>
+                <ul>
+                    <li><strong>Algorithm:</strong> XGBoost classifier</li>
+                    <li><strong>Validation:</strong> 10×5-fold cross-validation</li>
+                    <li><strong>Confidence intervals:</strong> 1000-iteration bootstrap</li>
+                </ul>
+
+                <h3>Sensitivity Analysis</h3>
+                <ul>
+                    <li>Separate model trained <strong>excluding hypotension</strong></li>
+                    <li>Tests if model provides value beyond obvious clinical triggers</li>
+                </ul>
+            </div>
+
+            <!-- Q3: Results -->
+            <div class="quadrant q3">
+                <h2>3. KEY RESULTS</h2>
+
+                <div class="metrics-row">
+                    <div class="metric-box">
+                        <div class="metric-value">0.934</div>
+                        <div class="metric-label">AUROC (Full)</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value">0.887</div>
+                        <div class="metric-label">AUROC (No Hypo)</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-value">85.9%</div>
+                        <div class="metric-label">Accuracy</div>
+                    </div>
+                </div>
+
+                <table class="comparison-table">
+                    <tr>
+                        <th>Model</th>
+                        <th>AUROC</th>
+                        <th>Sensitivity</th>
+                        <th>Specificity</th>
+                    </tr>
+                    <tr class="highlight">
+                        <td><strong>XGBoost</strong></td>
+                        <td><strong>0.934</strong></td>
+                        <td>87.7%</td>
+                        <td>88.2%</td>
+                    </tr>
+                    <tr>
+                        <td>MASCC+qSOFA</td>
+                        <td>0.864</td>
+                        <td>96.3%</td>
+                        <td>55.9%</td>
+                    </tr>
+                    <tr>
+                        <td>qSOFA alone</td>
+                        <td>0.838</td>
+                        <td>86.4%</td>
+                        <td>55.9%</td>
+                    </tr>
+                    <tr>
+                        <td>MASCC alone</td>
+                        <td>0.656</td>
+                        <td>98.8%</td>
+                        <td>32.4%</td>
+                    </tr>
+                </table>
+
+                <div class="highlight-text">
+                    <strong>Key Finding:</strong> Even without hypotension, model achieves AUROC 0.887, demonstrating
+                    value beyond obvious clinical triggers.
+                </div>
+            </div>
+
+            <!-- Q4: Conclusions -->
+            <div class="quadrant q4">
+                <h2>4. CONCLUSIONS & IMPACT</h2>
+
+                <h3>Hypotheses Supported</h3>
+                <ul>
+                    <li>✓ <strong>H1:</strong> AUROC 0.934 > 0.80 threshold</li>
+                    <li>✓ <strong>H2:</strong> Outperforms MASCC (+42%) and qSOFA (+11%)</li>
+                    <li>✓ <strong>H3:</strong> Consistent across tumor type & neutropenia status</li>
+                </ul>
+
+                <h3>Clinical Applications</h3>
+                <ul>
+                    <li>Triage tool for high-risk patient identification</li>
+                    <li>Resource allocation in ICU-limited settings</li>
+                    <li>Decision support for intermediate-risk patients</li>
+                </ul>
+
+                <h3>Limitations & Future Work</h3>
+                <ul>
+                    <li>Single-center data (n=149) — needs external validation</li>
+                    <li>Retrospective design — prospective study needed</li>
+                    <li>Future: multi-center validation, biomarker integration</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
