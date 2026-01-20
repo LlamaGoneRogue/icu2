@@ -1,141 +1,249 @@
-# ICU Requirement Prediction for Oncology Patients
+<p align="center">
+  <h1 align="center">🏥 ICU Admission Prediction for Febrile Oncology Patients</h1>
+  <p align="center">
+    <strong>A machine learning model to predict ICU requirements in cancer patients with febrile illness</strong>
+  </p>
+  <p align="center">
+    <a href="#results"><img src="https://img.shields.io/badge/AUROC-0.925-brightgreen?style=for-the-badge" alt="AUROC"></a>
+    <a href="#results"><img src="https://img.shields.io/badge/AUPRC-0.948-brightgreen?style=for-the-badge" alt="AUPRC"></a>
+    <a href="#results"><img src="https://img.shields.io/badge/F1_Score-0.845-blue?style=for-the-badge" alt="F1"></a>
+  </p>
+</p>
 
-## Project Overview
+---
 
-This project develops a machine learning model to predict whether oncology patients presenting with febrile illness require ICU admission, using clinical features available at initial presentation.
+## 📋 Overview
 
-**Target Variable**: ICU Requirement (Binary)
-- 1 = ICU Required
-- 0 = Not ICU Required
+Febrile neutropenia in oncology patients can rapidly progress to sepsis and multi-organ failure. Early identification of patients requiring ICU admission enables timely intervention and improved outcomes.
 
-## Results Summary
+This project develops an **XGBoost-based predictive model** using clinical features available at initial presentation to identify high-risk patients who may require ICU-level care.
+
+### 🎯 Key Highlights
+
+- **High Discrimination**: AUROC of 0.925 demonstrates excellent predictive ability
+- **Robust Validation**: 10-repeat 5-fold stratified cross-validation with bootstrap confidence intervals
+- **Interpretable**: SHAP-based feature importance for clinical transparency
+- **Sensitivity Analysis**: Includes model variant excluding hypotension (for earlier-stage prediction)
+
+---
+
+## 📊 Results
+
+<a name="results"></a>
+
+### Model Performance
 
 | Metric | Value | 95% CI |
-|--------|-------|--------|
-| **AUROC** | 0.9248 | [0.9133, 0.9358] |
-| **AUPRC** | 0.9483 | [0.9414, 0.9551] |
-| **Accuracy** | 0.8317 | [0.8172, 0.8452] |
-| **F1 Score** | 0.8450 | [0.8313, 0.8574] |
+|:-------|:-----:|:------:|
+| **AUROC** | 0.925 | [0.913, 0.936] |
+| **AUPRC** | 0.948 | [0.941, 0.955] |
+| **Accuracy** | 83.2% | [81.7%, 84.5%] |
+| **F1 Score** | 0.845 | [0.831, 0.857] |
+| **Sensitivity** | 85.2% | — |
+| **Specificity** | 80.9% | — |
 
-## Top Predictive Features
+### 📈 Visualizations
 
-1. **Hypotension_Level** - Most important predictor
-2. **qSOFA** - Sepsis severity indicator
-3. **Mets_Binary** - Metastatic disease status
-4. **Comorb** - Comorbidity burden
-5. **Focus_PneumResp** - Respiratory infection focus
+<table>
+  <tr>
+    <td align="center"><strong>ROC Curve</strong></td>
+    <td align="center"><strong>Precision-Recall Curve</strong></td>
+  </tr>
+  <tr>
+    <td><img src="output/plots/roc_curve.png" width="400"/></td>
+    <td><img src="output/plots/pr_curve.png" width="400"/></td>
+  </tr>
+  <tr>
+    <td align="center"><strong>Calibration</strong></td>
+    <td align="center"><strong>Confusion Matrix</strong></td>
+  </tr>
+  <tr>
+    <td><img src="output/plots/calibration_curve.png" width="400"/></td>
+    <td><img src="output/plots/confusion_matrix.png" width="400"/></td>
+  </tr>
+</table>
 
-## Repository Structure
+### 🔍 Feature Importance
 
-```
-icu2/
-├── src/
-│   ├── data_prep.py      # Data ingestion and validation
-│   ├── train.py          # XGBoost training with CV
-│   └── evaluate.py       # Evaluation and visualization
-├── pipelines/
-│   └── pipeline.py       # SageMaker Pipeline definition
-├── data/                 # Local data storage
-├── output/               # Model outputs
-│   ├── metrics.json      # CV metrics with CIs
-│   ├── cv_predictions.csv
-│   ├── feature_importance.csv
-│   ├── xgboost_model.pkl
-│   ├── REPORT.md         # Full evaluation report
-│   └── plots/            # Visualization outputs
-├── requirements.txt
-└── README.md
-```
+The model identifies key clinical predictors of ICU requirement:
 
-## Installation
+| Rank | Feature | Description |
+|:----:|---------|-------------|
+| 1 | **Hypotension Level** | Severity of blood pressure drop |
+| 2 | **qSOFA Score** | Quick Sepsis-related Organ Failure Assessment |
+| 3 | **Metastatic Status** | Presence of metastatic disease |
+| 4 | **Comorbidity Burden** | Number/severity of comorbidities |
+| 5 | **Respiratory Focus** | Pneumonia or respiratory infection source |
+
+<p align="center">
+  <img src="output/plots/shap_summary.png" width="700" alt="SHAP Summary"/>
+</p>
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.8+
+- pip or conda
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/LlamaGoneRogue/icu2.git
+cd icu2
+
 # Create virtual environment
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-## Usage
-
-### Run Pipeline Locally
+### Running the Pipeline
 
 ```bash
-# Step 1: Data Preparation
-python src/data_prep.py
+# Option 1: Run steps individually
+python src/data_prep.py      # Data preparation & validation
+python src/train.py          # Train XGBoost model
+python src/evaluate.py       # Generate evaluation metrics & plots
 
-# Step 2: Model Training
-python src/train.py
-
-# Step 3: Evaluation
-python src/evaluate.py
-```
-
-Or run all steps via the pipeline script:
-
-```bash
+# Option 2: Run complete pipeline
 python pipelines/pipeline.py --local
 ```
 
-### Run with SageMaker
+### AWS SageMaker Deployment
 
 ```bash
-# Create/update pipeline
+# Create/update SageMaker pipeline
 python pipelines/pipeline.py --create --role <your-sagemaker-role-arn>
 
 # Execute pipeline
 python pipelines/pipeline.py --execute --role <your-sagemaker-role-arn>
 ```
 
-## Configuration
+---
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| S3 Bucket | `icu-required` | S3 bucket for data |
-| S3 Key | `cleaned_data.csv` | Path to input CSV |
-| Region | `us-east-1` | AWS region |
-| K-Folds | 5 | Cross-validation folds |
-| N-Repeats | 10 | CV repetitions |
-| Random Seed | 42 | For reproducibility |
+## 📁 Project Structure
 
-## Model Details
+```
+icu2/
+├── 📂 src/                          # Source code
+│   ├── data_prep.py                 # Data ingestion & validation
+│   ├── train.py                     # XGBoost training with CV
+│   ├── train_no_hypotension.py      # Sensitivity analysis training
+│   ├── evaluate.py                  # Evaluation & visualization
+│   ├── evaluate_no_hypotension.py   # Sensitivity analysis evaluation
+│   ├── validation.py                # Data validation utilities
+│   ├── diagnostics.py               # Model diagnostics
+│   └── publication_analysis.py      # Publication-ready outputs
+│
+├── 📂 pipelines/                    # Pipeline definitions
+│   └── pipeline.py                  # SageMaker Pipeline
+│
+├── 📂 data/                         # Data storage
+│   ├── processed_data.csv           # Preprocessed dataset
+│   └── data_validation_report.json  # Data quality report
+│
+├── 📂 output/                       # Model outputs
+│   ├── metrics.json                 # CV metrics with CIs
+│   ├── xgboost_model.pkl            # Trained model
+│   ├── REPORT.md                    # Evaluation report
+│   ├── COMBINED_REPORT.md           # Combined analysis report
+│   ├── 📂 plots/                    # Visualization outputs
+│   ├── 📂 no_hypotension/           # Sensitivity analysis results
+│   └── 📂 publication/              # Publication materials
+│
+├── 📄 RESEARCH_PLAN.md              # Research methodology
+├── 📄 requirements.txt              # Python dependencies
+└── 📄 README.md                     # This file
+```
 
-- **Algorithm**: XGBoost Classifier
-- **Validation**: 10-repeat 5-fold stratified cross-validation
-- **Hyperparameters**:
-  - max_depth: 3 (conservative for small dataset)
-  - learning_rate: 0.1
-  - n_estimators: 100
-  - subsample: 0.8
-  - min_child_weight: 5
+---
 
-## Outputs
+## ⚙️ Model Configuration
 
-| File | Description |
-|------|-------------|
-| `metrics.json` | CV metrics with bootstrap CIs |
-| `cv_predictions.csv` | Out-of-fold predictions |
-| `feature_importance.csv` | Gain-based importance |
-| `permutation_importance.csv` | Permutation importance |
-| `xgboost_model.pkl` | Trained model |
-| `REPORT.md` | Full evaluation report |
-| `plots/roc_curve.png` | ROC curve |
-| `plots/pr_curve.png` | Precision-Recall curve |
-| `plots/calibration_curve.png` | Calibration plot |
-| `plots/confusion_matrix.png` | Confusion matrix |
-| `plots/feature_importance_gain.png` | Feature importance (gain) |
-| `plots/permutation_importance.png` | Permutation importance |
-| `plots/shap_summary.png` | SHAP summary plot |
+### XGBoost Hyperparameters
 
-## Limitations
+| Parameter | Value | Rationale |
+|-----------|:-----:|-----------|
+| `max_depth` | 3 | Conservative to prevent overfitting on small dataset |
+| `learning_rate` | 0.1 | Standard learning rate |
+| `n_estimators` | 100 | Sufficient for convergence |
+| `subsample` | 0.8 | Row sampling for regularization |
+| `colsample_bytree` | 0.8 | Feature sampling for regularization |
+| `min_child_weight` | 5 | Minimum samples per leaf |
+| `reg_alpha` | 0.1 | L1 regularization |
+| `reg_lambda` | 1.0 | L2 regularization |
 
-1. Small sample size (~149 patients)
-2. Single-center data (generalizability uncertain)
-3. No prospective temporal validation
-4. **NOT validated for clinical use**
+### Cross-Validation Strategy
 
-## License
+- **Method**: Repeated Stratified K-Fold
+- **Folds**: 5
+- **Repeats**: 10
+- **Total Iterations**: 50
+- **Confidence Intervals**: Bootstrap (1000 iterations)
 
-For research purposes only. Requires prospective validation before clinical implementation.
+---
+
+## 📚 Outputs & Reports
+
+| Output | Description |
+|--------|-------------|
+| `output/REPORT.md` | Comprehensive evaluation report |
+| `output/COMBINED_REPORT.md` | Combined analysis with sensitivity results |
+| `output/publication/MANUSCRIPT.html` | Publication-ready manuscript |
+| `output/publication/POSTER.html` | Research poster |
+| `output/publication/NCSEF_PRESENTATION.html` | Presentation slides |
+
+---
+
+## ⚠️ Limitations & Disclaimers
+
+> **⚠️ RESEARCH USE ONLY**
+> 
+> This model is for research purposes only and has **NOT been validated for clinical use**.
+
+### Known Limitations
+
+1. **Sample Size**: Small cohort (~149 patients) limits generalizability
+2. **Single-Center**: Data from one institution may not generalize to other settings
+3. **No Temporal Validation**: Prospective validation not yet performed
+4. **Feature Dependence**: Model heavily relies on hypotension, which may limit early prediction
+
+### Future Work
+
+- [ ] Multi-center external validation
+- [ ] Prospective clinical trial
+- [ ] Integration with EHR systems
+- [ ] Real-time risk scoring dashboard
+
+---
+
+## 📄 Citation
+
+If you use this work, please cite:
+
+```bibtex
+@software{icu_prediction_2026,
+  title = {ICU Admission Prediction for Febrile Oncology Patients},
+  author = {Iyer, Aditya},
+  year = {2026},
+  url = {https://github.com/LlamaGoneRogue/icu2}
+}
+```
+
+---
+
+## 📜 License
+
+This project is for **research purposes only**. Clinical implementation requires prospective validation and regulatory approval.
+
+---
+
+<p align="center">
+  Made with ❤️ for improving oncology patient outcomes
+</p>
